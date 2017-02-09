@@ -1,10 +1,61 @@
-/* 
+const weatherURL = "https://api.openweathermap.org/data/2.5/weather";
+const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
+
+function getWeatherData(zip) {
+  var query = {
+    zip : zip,
+    APPID : "f07213d94e6f52cf12b79a83ca310d53",
+  }
+  $.getJSON(weatherURL, query, callback);
+}
+function callback (data) {
+  console.log(data);
+}
+
+const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
+const giphyKey = "dc6zaTOxFJmzC";
+
+function getGiphyData (word) {
+  var query = {
+    q : word,
+    api_key : giphyKey,
+  }
+  $.getJSON(giphyEndpoint, query, giphyCallback)
+}
+function giphyCallback(data) {
+  console.log(data);
+}
+
+
+$(function(){
+  $('button').on('click', function(e){
+    e.preventDefault();
+    getGiphyData('snow');
+    console.log('hello');
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 create the first representation of the state
 User inputs location into a form and push button
 return current weather information with 5 gif that corresponds to the weather keyword
 create an event listener to capture the location
 call weather API for information on current location weather
-extract the keyword 
+extract the keyword
 call the giphy API with the extracted keyword from the weather API
 extract the 5 gifs that correspond to the keyword
 modify the state to show the 5 gifs on the page
