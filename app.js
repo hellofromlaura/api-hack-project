@@ -1,3 +1,10 @@
+var appState = {
+	gifArray: [],
+	weatherKeyword: " ",
+}
+
+
+
 const weatherURL = "http://api.openweathermap.org/data/2.5/weather";
 const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
 
