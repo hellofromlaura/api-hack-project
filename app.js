@@ -16,7 +16,8 @@ function getWeatherData(zip) {
   $.getJSON(weatherURL, query, callback);
 }
 function callback (data) {
-  console.log(data);
+  
+  getGiphyData(data.weather[0].description);
 }
 
 const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
@@ -30,14 +31,13 @@ function getGiphyData (word) {
   $.getJSON(giphyEndpoint, query, giphyCallback)
 }
 function giphyCallback(data) {
-  console.log(data);
+  console.log(data.data[0].url);
 }
 
 
 $(function(){
   $('button').on('click', function(e){
     e.preventDefault();
-    getGiphyData('snow');
     getWeatherData('80207');
 
 
