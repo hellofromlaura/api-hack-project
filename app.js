@@ -4,13 +4,17 @@ const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
 const giphyKey = "dc6zaTOxFJmzC";
 
 var appState = {
-	gifArray: [],
 	weatherKeyword: " ",
+	gifArray: [],
 }
 /* Modify State Function */
 function setWeatherKeyword (state, word) {
   state.weatherKeyword = word;
 
+}
+
+function setGiphyArray (state, item) {
+  state.gifArray = item;
 }
 
 /* API Calling Functions*/
@@ -34,12 +38,25 @@ function weatherCallback (data) {
   let weatherWord = data.weather[0].description;
   setWeatherKeyword(appState, weatherWord);
   getGiphyData(appState);
-
 }
+
 function giphyCallback(data) {
-  console.log(data);
+  let gifArray = [];
+  for (var i = 0; i < 6; i++) {
+  	gifArray.push(data.data[i].images.fixed_height.url);
+  }
+  setGiphyArray(appState, gifArray);
+  renderGifs(appState);
 }
 /* Rendering Functions */
+function renderGifs (state) {
+  var newElement = appState.gifArray.map(function (gif) {
+  	return `<img src="${gif}" alt="gif">`;
+  });	
+  $(".results-to-show").html(newElement);
+  console.log(newElement);
+}
+
 
 
 $(function(){
