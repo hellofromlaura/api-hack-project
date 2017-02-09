@@ -1,46 +1,51 @@
+const weatherURL = "http://api.openweathermap.org/data/2.5/weather";
+const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
+const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
+const giphyKey = "dc6zaTOxFJmzC";
+
 var appState = {
 	gifArray: [],
 	weatherKeyword: " ",
 }
+/* Modify State Function */
+function setWeatherKeyword (state, word) {
+  state.weatherKeyword = word;
 
+}
 
-
-const weatherURL = "http://api.openweathermap.org/data/2.5/weather";
-const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
-
+/* API Calling Functions*/
 function getWeatherData(zip) {
   var query = {
     zip : zip,
-    APPID : "f07213d94e6f52cf12b79a83ca310d53",
+    APPID : weatherKEY,
   }
-  $.getJSON(weatherURL, query, callback);
-}
-function callback (data) {
-  
-  getGiphyData(data.weather[0].description);
+  $.getJSON(weatherURL, query, weatherCallback);
 }
 
-const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
-const giphyKey = "dc6zaTOxFJmzC";
-
-function getGiphyData (word) {
+function getGiphyData (state) {
   var query = {
-    q : word,
+    q : state.weatherKeyword,
     api_key : giphyKey,
   }
   $.getJSON(giphyEndpoint, query, giphyCallback)
 }
-function giphyCallback(data) {
-  console.log(data.data[0].url);
+/* API Handling Functions*/
+function weatherCallback (data) {
+  let weatherWord = data.weather[0].description;
+  setWeatherKeyword(appState, weatherWord);
+  getGiphyData(appState);
+
 }
+function giphyCallback(data) {
+  console.log(data);
+}
+/* Rendering Functions */
 
 
 $(function(){
   $('button').on('click', function(e){
     e.preventDefault();
     getWeatherData('80207');
-
-
   });
 });
 
