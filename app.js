@@ -1,4 +1,4 @@
-const weatherURL = "https://api.openweathermap.org/data/2.5/weather";
+const weatherURL = "http://api.openweathermap.org/data/2.5/weather";
 const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
 
 function getWeatherData(zip) {
@@ -31,7 +31,9 @@ $(function(){
   $('button').on('click', function(e){
     e.preventDefault();
     getGiphyData('snow');
-    console.log('hello');
+    getWeatherData('80207');
+
+
   });
 });
 
