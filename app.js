@@ -6,6 +6,7 @@ const giphyKey = "dc6zaTOxFJmzC";
 var appState = {
 	weatherKeyword: " ",
 	gifArray: [],
+  gifUrlArray: [],
 }
 /* Modify State Function */
 function setWeatherKeyword (state, word) {
@@ -13,8 +14,9 @@ function setWeatherKeyword (state, word) {
 
 }
 
-function setGiphyArray (state, item) {
-  state.gifArray = item;
+function setGiphyArray (state, item1, item2) {
+  state.gifArray = item1;
+  state.gifUrlArray = item2;
 }
 
 /* API Calling Functions*/
@@ -42,19 +44,21 @@ function weatherCallback (data) {
 
 function giphyCallback(data) {
   let gifArray = [];
+  let gifUrls = [];
   for (var i = 0; i < 6; i++) {
   	gifArray.push(data.data[i].images.fixed_height.url);
+    gifUrls.push(data.data[i].url);
   }
-  setGiphyArray(appState, gifArray);
+  setGiphyArray(appState, gifArray, gifUrls);
   renderGifs(appState);
 }
 /* Rendering Functions */
 function renderGifs (state) {
-  var newElement = appState.gifArray.map(function (gif) {
-  	return `<img src="${gif}" alt="gif">`;
-  });	
+  var newElement = appState.gifArray.map(function (gif, i) {
+    let gifUrl = appState.gifUrlArray[i];
+  	return `<a href="${gifUrl}"><img src="${gif}" alt="gif"></a>`;
+  });
   $(".results-to-show").html(newElement);
-  console.log(newElement);
 }
 
 
@@ -62,7 +66,9 @@ function renderGifs (state) {
 $(function(){
   $('button').on('click', function(e){
     e.preventDefault();
-    getWeatherData('80207');
+    let $inputZip = $('.term-to-search').val();
+    getWeatherData($inputZip);
+    console.log($inputZip);
   });
 });
 
