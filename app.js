@@ -30,8 +30,9 @@ function getWeatherData(zip) {
 
 function getGiphyData (state) {
   var query = {
-    q : state.weatherKeyword,
+    q : `${state.weatherKeyword} weather`,
     api_key : giphyKey,
+
   }
   $.getJSON(giphyEndpoint, query, giphyCallback)
 }
@@ -64,29 +65,26 @@ function renderGifs (state) {
 
 
 $(function(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+      $('h1').text(`You are at ${position.coords.latitude} ${position.coords.longitude}`);
+    });
+  }
   $('button').on('click', function(e){
     e.preventDefault();
     let $inputZip = $('.term-to-search').val();
     getWeatherData($inputZip);
-    console.log($inputZip);
+    $('.term-to-search').val('');
+
   });
 });
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*
+
+Features to Add:
+1. Load gif when user first arrives to site - based on geolocation data.
 create the first representation of the state
 User inputs location into a form and push button
 return current weather information with 5 gif that corresponds to the weather keyword
