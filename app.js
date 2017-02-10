@@ -79,11 +79,22 @@ $(function(){
   $('button').on('click', function(e){
     e.preventDefault();
     let $inputZip = $('.term-to-search').val();
-    getWeatherData($inputZip);
+    validateZip($inputZip);
     $('.term-to-search').val('');
-
   });
 });
+
+/* Form Validation */
+function validateZip (num) {
+  if (num === "" || num === NaN || num.length !== 5) {
+    alert("Zip code not valid");
+      return false;
+    }
+    else { 
+      getWeatherData(num);
+    }
+}
+
 
 
 
