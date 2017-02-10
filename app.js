@@ -6,6 +6,7 @@ const giphyTrendingEndpoint = "http://api.giphy.com/v1/gifs/trending";
 
 var appState = {
 	weatherKeyword: " ",
+  currentTemp: "",
 	gifArray: [],
   gifUrlArray: [],
 }
@@ -18,6 +19,9 @@ function setWeatherKeyword (state, word) {
 function setGiphyArray (state, item1, item2) {
   state.gifArray = item1;
   state.gifUrlArray = item2;
+}
+function setCurrentTemp (state, num) {
+  state.currentTemp = num;
 }
 
 /* API Calling Functions*/
@@ -48,6 +52,9 @@ function getGiphyData (state) {
 /* API Handling Functions*/
 function weatherCallback (data) {
   let weatherWord = data.weather[0].description;
+  let currentTempKelvin = data.main.temp;
+  let currentTempFahr = (currentTempKelvin * 9/5 - 459.67).toFixed(1);
+  setCurrentTemp (appState, currentTempFahr)
   setWeatherKeyword(appState, weatherWord);
   getGiphyData(appState);
 }
@@ -68,9 +75,19 @@ function renderGifs (state) {
   $('.gifs').removeClass('hidden');
   var newElement = appState.gifArray.map(function (gif, i) {
     let gifUrl = appState.gifUrlArray[i];
-  	return `<a href="${gifUrl}" target="_new"><img src="${gif}" alt="gif" width="500px"></a>`;
+    let activeClass = '';
+    if (i === 0) {
+      activeClass = 'active';
+    }
+    return `<div class="item ${activeClass}">
+      <img src="${gif}" width="500px" alt="" />
+      <div class="carousel-caption">
+        <h2>Current Temperature is ${state.currentTemp}</h2>
+      </div>
+    </div>`
+  	//return `<a href="${gifUrl}" target="_new"><img src="${gif}" alt="gif" width="500px"></a>`;
   });
-  $(".results-to-show").html(newElement);
+  $(".carousel-inner").html(newElement);
 }
 
 $(function(){
