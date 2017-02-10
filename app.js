@@ -64,6 +64,8 @@ function giphyCallback(data) {
 }
 /* Rendering Functions */
 function renderGifs (state) {
+  $('.random').addClass('hidden');
+  $('.gifs').removeClass('hidden');
   var newElement = appState.gifArray.map(function (gif, i) {
     let gifUrl = appState.gifUrlArray[i];
   	return `<a href="${gifUrl}" target="_new"><img src="${gif}" alt="gif" width="500px"></a>`;

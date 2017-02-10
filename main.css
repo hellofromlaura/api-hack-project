@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+
+}
+header {
+  margin-top: 15px;
+  text-align: center;
+
+}
+h1 {
+  color: grey;
+  margin: auto;
+  display: inline-block;
+  font-family: 'Barrio';
+  font-size: 100px;
+}
+.container {
+  margin: auto;
+  width: 1000px;
+  height: 300;
+  text-align: center;
+
+}
+.hidden {
+  display: none;
+}
