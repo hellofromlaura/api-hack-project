@@ -2,6 +2,7 @@ const weatherURL = "http://api.openweathermap.org/data/2.5/weather";
 const weatherKEY = "f07213d94e6f52cf12b79a83ca310d53";
 const giphyEndpoint = "http://api.giphy.com/v1/gifs/search";
 const giphyKey = "dc6zaTOxFJmzC";
+const giphyTrendingEndpoint = "http://api.giphy.com/v1/gifs/trending";
 
 var appState = {
 	weatherKeyword: " ",
@@ -20,6 +21,13 @@ function setGiphyArray (state, item1, item2) {
 }
 
 /* API Calling Functions*/
+function getRandomGif () {
+  var query = {
+    api_key : giphyKey,
+    limit: 1,
+  }
+  $.getJSON(giphyTrendingEndpoint, query, giphyCallback)
+}
 function getWeatherData(zip) {
   var query = {
     zip : zip,
@@ -32,6 +40,7 @@ function getGiphyData (state) {
   var query = {
     q : `${state.weatherKeyword} weather`,
     api_key : giphyKey,
+    limit: 6,
 
   }
   $.getJSON(giphyEndpoint, query, giphyCallback)
@@ -46,7 +55,7 @@ function weatherCallback (data) {
 function giphyCallback(data) {
   let gifArray = [];
   let gifUrls = [];
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < data.data.length; i++) {
   	gifArray.push(data.data[i].images.fixed_height.url);
     gifUrls.push(data.data[i].url);
   }
@@ -57,7 +66,7 @@ function giphyCallback(data) {
 function renderGifs (state) {
   var newElement = appState.gifArray.map(function (gif, i) {
     let gifUrl = appState.gifUrlArray[i];
-  	return `<a href="${gifUrl}"><img src="${gif}" alt="gif"></a>`;
+  	return `<a href="${gifUrl}" target="_new"><img src="${gif}" alt="gif" width="500px"></a>`;
   });
   $(".results-to-show").html(newElement);
 }
@@ -65,11 +74,8 @@ function renderGifs (state) {
 
 
 $(function(){
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position){
-      $('h1').text(`You are at ${position.coords.latitude} ${position.coords.longitude}`);
-    });
-  }
+  getRandomGif();
+
   $('button').on('click', function(e){
     e.preventDefault();
     let $inputZip = $('.term-to-search').val();
@@ -84,8 +90,7 @@ $(function(){
 /*
 
 Features to Add:
-1. Load gif when user first arrives to site - based on geolocation data.
-create the first representation of the state
+1. Fix layout - have big random image loaded on center of screen, location searchbox under that, when they enter zip random image div fades out weather related image div fades in.
 User inputs location into a form and push button
 return current weather information with 5 gif that corresponds to the weather keyword
 create an event listener to capture the location
