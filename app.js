@@ -9,7 +9,7 @@ var appState = {
 	gifArray: [],
   gifUrlArray: [],
 }
-/* Modify State Function */
+/* Modify State Functions */
 function setWeatherKeyword (state, word) {
   state.weatherKeyword = word;
 
@@ -72,8 +72,6 @@ function renderGifs (state) {
   });
   $(".results-to-show").html(newElement);
 }
-
-
 
 $(function(){
   getRandomGif();
