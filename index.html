@@ -7,15 +7,51 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
-  <title>Document</title>
+  <title>GifCast</title>
 </head>
 <body>
-  <header>
-		<h1>GIF</h1>
-		<h1>Cast</h1>
-  </header>
+
 	<main>
-		<div class="container">
+    <div class="conainter">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>GIF CAST</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+          <div id="my-slider" class="carousel slide" data-ride="carousel">
+            <!-- wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+
+            </div>
+            <!-- controls or next and prev buttons-->
+            <a class="left carousel-control" href="#my-slider" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#my-slider" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <form class="form-to-search">
+      <input class="term-to-search" type="text">
+      <button class="btn btn-primary btn-lg to-search" type="submit">Get GifCast</button>
+    </form>
+
+
+
+
+
+
+		<!-- <div class="container">
 			<div class="results-to-show random">
 			</div>
 			<div class="results-to-show gifs hidden">
@@ -24,12 +60,8 @@
 				<input class="term-to-search" type="text">
 				<button class="btn btn-primary btn-lg to-search" type="submit">Get GifCast</button>
 			</form>
-		</div>
+		</div> -->
 	</main>
-
-  <div>
-
-  </div>
   <script
   src="https://code.jquery.com/jquery-3.1.1.js"
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
@@ -38,28 +70,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-	<meta charset="utf-8">
-	<title>Gify my weather</title>
-	<link rel="stylesheet" type="text/css" href="main.css">
-</head>
-
-<body>
-	<h1></h1>
-	<form class="form-to-search">
-		<input class="term-to-search" type="text">
-		<button class="to-search" type="submit">Search Me </button>
-	</form>
-
-	<div class="results-to-show">
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-	<script src="app.js"></script>
-</body>
-
-</html> -->
