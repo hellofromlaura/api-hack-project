@@ -86,12 +86,12 @@ $(function(){
 
 /* Form Validation */
 function validateZip (num) {
-  if (num === "" || num === NaN || num.length !== 5) {
-    alert("Zip code not valid");
-      return false;
+    if (num.match(/^\d{5}$/)) {
+      getWeatherData(num);
     }
     else { 
-      getWeatherData(num);
+      alert("Zip code not valid");
+      return false;
     }
 }
 
