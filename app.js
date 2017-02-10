@@ -6,7 +6,7 @@ const giphyTrendingEndpoint = "http://api.giphy.com/v1/gifs/trending";
 
 var appState = {
 	weatherKeyword: " ",
-  currentTemp: "",
+  currentTemp: "... let's find out",
 	gifArray: [],
   gifUrlArray: [],
 }

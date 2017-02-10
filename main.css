@@ -28,3 +28,13 @@ h1 {
 .hidden {
   display: none;
 }
+
+input, button, form {
+ 	width: 300px;
+    margin: 10px auto;
+}
+
+img {
+  max-height: 300px;
+  margin: auto;
+}
