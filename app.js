@@ -10,21 +10,24 @@ var appState = {
 	gifArray: [],
   gifUrlArray: [],
 }
+
 /* Modify State Functions */
+
 function setWeatherKeyword (state, word) {
   state.weatherKeyword = word;
-
 }
 
 function setGiphyArray (state, item1, item2) {
   state.gifArray = item1;
   state.gifUrlArray = item2;
 }
+
 function setCurrentTemp (state, num) {
   state.currentTemp = num;
 }
 
 /* API Calling Functions*/
+
 function getRandomGif () {
   var query = {
     api_key : giphyKey,
@@ -32,7 +35,8 @@ function getRandomGif () {
   }
   $.getJSON(giphyTrendingEndpoint, query, giphyCallback)
 }
-function getWeatherData(zip) {
+
+function getWeatherData (zip) {
   var query = {
     zip : zip,
     APPID : weatherKEY,
@@ -45,11 +49,12 @@ function getGiphyData (state) {
     q : `${state.weatherKeyword} weather`,
     api_key : giphyKey,
     limit: 6,
-
   }
   $.getJSON(giphyEndpoint, query, giphyCallback)
 }
+
 /* API Handling Functions*/
+
 function weatherCallback (data) {
   let weatherWord = data.weather[0].description;
   let currentTempKelvin = data.main.temp;
@@ -69,7 +74,9 @@ function giphyCallback(data) {
   setGiphyArray(appState, gifArray, gifUrls);
   renderGifs(appState);
 }
+
 /* Rendering Functions */
+
 function renderGifs (state) {
   $('.random').addClass('hidden');
   $('.gifs').removeClass('hidden');
@@ -77,7 +84,7 @@ function renderGifs (state) {
     let gifUrl = appState.gifUrlArray[i];
     let activeClass = '';
     if (i === 0) {
-      activeClass = 'active';
+      activeClass = 'active'; // add class active to only the first carousel item
     }
     return `<div class="item ${activeClass}">
       <img src="${gif}" width="500px" alt="" />
@@ -85,14 +92,26 @@ function renderGifs (state) {
         <h2>Current Temperature is ${state.currentTemp}</h2>
       </div>
     </div>`
-  	//return `<a href="${gifUrl}" target="_new"><img src="${gif}" alt="gif" width="500px"></a>`;
   });
   $(".carousel-inner").html(newElement);
 }
 
+/* Form Validation for 5 digit zip codes*/
+
+function validateZip (num) {
+    if (num.match(/^\d{5}$/)) {
+      getWeatherData(num);
+    }
+    else {
+      alert("Zip code not valid");
+      return false;
+    }
+}
+
+/* Document Ready with Event Handler function */
+
 $(function(){
   getRandomGif();
-
   $('button').on('click', function(e){
     e.preventDefault();
     let $inputZip = $('.term-to-search').val();
@@ -101,16 +120,7 @@ $(function(){
   });
 });
 
-/* Form Validation */
-function validateZip (num) {
-    if (num.match(/^\d{5}$/)) {
-      getWeatherData(num);
-    }
-    else { 
-      alert("Zip code not valid");
-      return false;
-    }
-}
+
 
 
 
