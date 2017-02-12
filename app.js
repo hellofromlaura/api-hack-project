@@ -29,7 +29,7 @@ function setCurrentTemp (state, num) {
 /* API Calling Functions*/
 
 function getRandomGif () {
-  var query = {
+  let query = {
     api_key : giphyKey,
     limit: 1,
   }
@@ -37,7 +37,7 @@ function getRandomGif () {
 }
 
 function getWeatherData (zip) {
-  var query = {
+  let query = {
     zip : zip,
     APPID : weatherKEY,
   }
@@ -45,7 +45,7 @@ function getWeatherData (zip) {
 }
 
 function getGiphyData (state) {
-  var query = {
+  let query = { //change vars to let
     q : `${state.weatherKeyword} weather`,
     api_key : giphyKey,
     limit: 6,
