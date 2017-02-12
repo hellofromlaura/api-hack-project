@@ -80,7 +80,7 @@ function giphyCallback(data) {
 function renderGifs (state) {
   $('.random').addClass('hidden');
   $('.gifs').removeClass('hidden');
-  var newElement = appState.gifArray.map(function (gif, i) {
+  let newElement = appState.gifArray.map(function (gif, i) {
     let gifUrl = appState.gifUrlArray[i];
     let activeClass = '';
     if (i === 0) {
